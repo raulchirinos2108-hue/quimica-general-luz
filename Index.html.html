@@ -1,0 +1,989 @@
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CÁTEDRA QUÍMICA GENERAL - ESCUELA DE BIOANÁLISIS - FM - LUZ</title>
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Fuente Inter -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Inter', 'sans-serif'],
+          },
+          colors: {
+            inst: {
+              navy: '#13294B',
+              navyLight: '#1E3F73',
+              gold: '#B8860B',
+              goldSoft: '#FBF7EC',
+              slateBg: '#F6F8FA',
+              border: '#D8E1EB'
+            }
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    .hero-academico {
+      background: linear-gradient(135deg, #13294B 0%, #1B3B6F 60%, #13294B 100%);
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(6px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .animate-fade {
+      animation: fadeIn 0.3s ease-out forwards;
+    }
+  </style>
+  <script>
+    // Definidas en el head para evitar ReferenceError si onerror se dispara antes de leer el body
+    function manejarFallbackLogoLuz(img) {
+      const paso = parseInt(img.getAttribute('data-step') || '0', 10);
+      const rutas = [
+        'Logo luz.jfif',
+        'https://images.seeklogo.com/logo-png/8/1/luz-original-logo-png_seeklogo-86461.png'
+      ];
+      if (paso < rutas.length) {
+        img.setAttribute('data-step', String(paso + 1));
+        img.src = rutas[paso];
+      } else {
+        img.style.display = 'none';
+        const fb = document.getElementById('fallback-texto-luz');
+        if (fb) {
+          fb.classList.remove('hidden');
+          fb.classList.add('flex');
+        }
+      }
+    }
+
+    function manejarFallbackLogoFcm(img) {
+      const paso = parseInt(img.getAttribute('data-step') || '0', 10);
+      const rutas = [
+        'Logo_Facultad.jpeg',
+        'https://lookaside.fbsbx.com/lookaside/crawler/media/?media_id=465038475650723'
+      ];
+      if (paso < rutas.length) {
+        img.setAttribute('data-step', String(paso + 1));
+        img.src = rutas[paso];
+      } else {
+        img.style.display = 'none';
+        const fb = document.getElementById('fallback-texto-fcm');
+        if (fb) {
+          fb.classList.remove('hidden');
+          fb.classList.add('flex');
+        }
+      }
+    }
+  </script>
+</head>
+<body class="font-sans text-slate-800 bg-white antialiased selection:bg-inst-navy selection:text-white">
+
+  <!-- CINTILLO SUPERIOR INSTITUCIONAL -->
+  <div class="bg-inst-navy text-white text-xs sm:text-sm py-2 px-4 border-b-2 border-inst-gold">
+    <div class="max-w-7xl mx-auto flex flex-wrap justify-between items-center gap-2">
+      <div class="flex items-center gap-2 font-semibold tracking-wide">
+        <i class="fa-solid fa-building-columns text-amber-300"></i>
+        <span>REPÚBLICA BOLIVARIANA DE VENEZUELA &bull; UNIVERSIDAD DEL ZULIA (LUZ)</span>
+      </div>
+      <div class="flex items-center gap-3">
+        <span class="hidden md:inline-flex items-center gap-1.5 text-slate-200">
+          <i class="fa-solid fa-location-dot text-amber-300"></i> Maracaibo, Estado Zulia
+        </span>
+        <button onclick="abrirModalUrl()" class="bg-white/10 hover:bg-white/20 border border-white/25 text-white px-3 py-1 rounded-lg text-xs font-semibold transition flex items-center gap-1.5 cursor-pointer">
+          <i class="fa-solid fa-link text-amber-300"></i> Configurar URL Portal (/exec)
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 1. ENCABEZADO INSTITUCIONAL CON LOGOS OFICIALES DE LUZ Y FACULTAD DE MEDICINA -->
+  <header class="sticky top-0 z-40 bg-white/95 backdrop-blur-md shadow-sm border-b border-inst-border">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3.5">
+      <div class="flex items-center justify-between gap-3 sm:gap-5">
+        
+        <!-- Logo Oficial Universidad del Zulia (Izquierda) -->
+        <div onclick="document.getElementById('inp-file-luz').click()" title="Escudo Oficial Universidad del Zulia (Clic para seleccionar archivo si no carga)" class="w-14 h-16 sm:w-16 sm:h-20 rounded-xl bg-white border border-inst-border p-1.5 shadow-sm flex items-center justify-center flex-shrink-0 overflow-hidden hover:border-inst-navy transition cursor-pointer">
+          <img 
+            id="img-logo-luz"
+            src="luz-originaL_LUZ.png" 
+            data-step="0"
+            alt="Escudo Oficial Universidad del Zulia" 
+            class="w-full h-full object-contain"
+            onerror="manejarFallbackLogoLuz(this)"
+          >
+          <div id="fallback-texto-luz" class="hidden w-full h-full bg-inst-navy rounded-lg flex-col items-center justify-center text-white text-center p-1">
+            <span class="text-xs font-extrabold tracking-tight leading-none">LUZ</span>
+            <span class="text-[8px] text-amber-300 font-semibold mt-1">1891</span>
+          </div>
+        </div>
+
+        <!-- Título Institucional Oficial Centrado -->
+        <div class="text-center flex-1 min-w-0 px-1">
+          <p class="text-[11px] sm:text-xs font-bold uppercase tracking-widest text-inst-gold">
+            Universidad del Zulia &bull; Facultad de Medicina &bull; Escuela de Bioanálisis
+          </p>
+          <h1 class="text-base sm:text-xl lg:text-2xl font-extrabold text-inst-navy leading-snug tracking-tight mt-0.5">
+            CÁTEDRA QUÍMICA GENERAL - ESCUELA DE BIOANÁLISIS - FM - LUZ
+          </h1>
+          <p class="hidden sm:block text-xs font-medium text-slate-500 mt-0.5">
+            Departamento de Química &bull; Portal Académico Oficial
+          </p>
+        </div>
+
+        <!-- Logo Oficial Facultad de Medicina (Derecha) -->
+        <div onclick="document.getElementById('inp-file-fcm').click()" title="Escudo Oficial Facultad de Medicina - LUZ (Clic para seleccionar archivo)" class="w-14 h-16 sm:w-16 sm:h-20 rounded-xl bg-white border border-inst-border p-1.5 shadow-sm flex items-center justify-center flex-shrink-0 overflow-hidden hover:border-inst-gold transition cursor-pointer">
+          <img 
+            id="img-logo-fcm"
+            src="LOGO_FCM.jpeg" 
+            data-step="0"
+            alt="Escudo Oficial Facultad de Medicina - LUZ" 
+            class="w-full h-full object-contain"
+            onerror="manejarFallbackLogoFcm(this)"
+          >
+          <div id="fallback-texto-fcm" class="hidden w-full h-full bg-inst-goldSoft border border-inst-gold rounded-lg flex-col items-center justify-center text-inst-navy text-center p-1">
+            <span class="text-[10px] font-extrabold leading-tight">FCM</span>
+            <span class="text-[8px] font-bold text-inst-gold mt-0.5">LUZ</span>
+          </div>
+        </div>
+
+        <!-- Botón Menú Móvil -->
+        <button onclick="toggleMenuMovil()" class="lg:hidden p-2.5 rounded-xl border border-inst-border text-inst-navy hover:bg-inst-slateBg transition cursor-pointer" aria-label="Abrir menú">
+          <i class="fa-solid fa-bars text-lg"></i>
+        </button>
+      </div>
+
+      <!-- Barra de Navegación Desktop Unificada -->
+      <nav class="hidden lg:flex items-center justify-center gap-7 pt-3 mt-3 border-t border-slate-100 text-sm font-semibold text-slate-700">
+        <a href="#inicio" class="hover:text-inst-navy transition">Inicio</a>
+        <a href="#registro-consulta" class="hover:text-inst-navy transition">Registro y Consulta</a>
+        <a href="#induccion" class="hover:text-inst-navy transition">Inducción y Programación</a>
+        <a href="#beneficios" class="hover:text-inst-navy transition">Beneficios del Portal</a>
+        <a href="#docentes" class="hover:text-inst-navy transition">Planta Docente</a>
+        <a href="#preparaduria" class="hover:text-inst-navy transition">Preparaduría y Videos</a>
+        <button onclick="ingresarPortalWeb()" class="bg-inst-navy hover:bg-inst-navyLight text-white px-4 py-1.5 rounded-lg font-bold text-xs shadow-sm transition flex items-center gap-1.5 cursor-pointer">
+          <i class="fa-solid fa-arrow-up-right-from-square text-amber-300"></i>
+          <span>Acceder al Sistema</span>
+        </button>
+      </nav>
+    </div>
+
+    <!-- Menú Desplegable Móvil -->
+    <div id="menu-movil" class="hidden lg:hidden bg-white border-t border-inst-border px-4 py-4 space-y-2 shadow-lg">
+      <a href="#inicio" onclick="toggleMenuMovil()" class="block py-2 px-3 rounded-xl font-semibold text-slate-700 hover:bg-inst-slateBg hover:text-inst-navy">Inicio</a>
+      <a href="#registro-consulta" onclick="toggleMenuMovil()" class="block py-2 px-3 rounded-xl font-semibold text-slate-700 hover:bg-inst-slateBg hover:text-inst-navy">Registro y Consulta</a>
+      <a href="#induccion" onclick="toggleMenuMovil()" class="block py-2 px-3 rounded-xl font-semibold text-slate-700 hover:bg-inst-slateBg hover:text-inst-navy">Inducción y Programación</a>
+      <a href="#beneficios" onclick="toggleMenuMovil()" class="block py-2 px-3 rounded-xl font-semibold text-slate-700 hover:bg-inst-slateBg hover:text-inst-navy">Beneficios del Portal</a>
+      <a href="#docentes" onclick="toggleMenuMovil()" class="block py-2 px-3 rounded-xl font-semibold text-slate-700 hover:bg-inst-slateBg hover:text-inst-navy">Planta Docente</a>
+      <a href="#preparaduria" onclick="toggleMenuMovil()" class="block py-2 px-3 rounded-xl font-semibold text-slate-700 hover:bg-inst-slateBg hover:text-inst-navy">Preparaduría y Videos</a>
+    </div>
+  </header>
+
+  <!-- 2. HERO BANNER INSTITUCIONAL SOBRIO -->
+  <section id="inicio" class="hero-academico text-white py-14 sm:py-20 px-4 sm:px-6 lg:px-8 border-b-4 border-inst-gold">
+    <div class="max-w-5xl mx-auto text-center space-y-6">
+      <div class="inline-flex items-center gap-2 bg-white/10 border border-white/20 px-4 py-1.5 rounded-full text-xs sm:text-sm font-semibold text-amber-200">
+        <i class="fa-solid fa-flask"></i>
+        <span>Escuela de Bioanálisis &bull; Facultad de Medicina &bull; Universidad del Zulia</span>
+      </div>
+
+      <h2 class="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight leading-tight">
+        Portal Académico Oficial de la <span class="text-amber-300">Cátedra de Química General</span>
+      </h2>
+
+      <p class="text-slate-200 text-base sm:text-lg leading-relaxed max-w-3xl mx-auto font-normal">
+        Plataforma institucional de apoyo docente y estudiantil para la gestión de matrícula, control de asistencia mediante códigos QR, consulta de programación académica, calificaciones y preparadurías de la asignatura.
+      </p>
+
+      <div class="pt-2 flex flex-wrap justify-center gap-4">
+        <a href="#registro-consulta" class="bg-inst-gold hover:bg-amber-600 text-white font-bold px-7 py-3.5 rounded-xl shadow-lg transition flex items-center gap-2.5 text-sm sm:text-base">
+          <i class="fa-solid fa-qrcode"></i>
+          <span>Ir a Registro y Consulta</span>
+        </a>
+        <a href="#preparaduria" class="bg-white/10 hover:bg-white/20 border border-white/30 text-white font-semibold px-6 py-3.5 rounded-xl transition flex items-center gap-2 text-sm sm:text-base">
+          <i class="fa-solid fa-video text-amber-300"></i>
+          <span>Preparadurías y Videoteca</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- 3. SECCIÓN: REGISTRO Y CONSULTA (FONDO BLANCO) -->
+  <section id="registro-consulta" class="bg-white py-14 sm:py-16 px-4 sm:px-6 lg:px-8 border-b border-inst-border">
+    <div class="max-w-7xl mx-auto">
+      <div class="text-center max-w-3xl mx-auto mb-10">
+        <span class="text-xs font-bold uppercase tracking-widest text-inst-gold">Acceso Directo al Sistema Web</span>
+        <h2 class="text-2xl sm:text-3xl font-extrabold text-inst-navy mt-1">Registro y Consulta</h2>
+        <p class="text-slate-600 text-sm sm:text-base mt-2">
+          Enlace directo al portal de la matrícula estudiantil, consulta de calificaciones, programación académica y acceso exclusivo para profesores de la cátedra.
+        </p>
+      </div>
+
+      <!-- Barra de Vinculación de URL (/exec) -->
+      <div class="bg-inst-slateBg rounded-2xl border border-inst-border p-4 sm:p-5 mb-8 flex flex-col lg:flex-row items-stretch lg:items-center justify-between gap-4">
+        <div class="flex items-start sm:items-center gap-3">
+          <span id="dot-url" class="w-3 h-3 rounded-full bg-amber-500 mt-1 sm:mt-0 flex-shrink-0"></span>
+          <div class="text-xs sm:text-sm">
+            <span class="font-bold text-inst-navy block">Enlace Web App del Portal (Química General):</span>
+            <span id="lbl-url-estado" class="text-slate-600">Pegue la URL pública terminada en <code class="bg-white px-1.5 py-0.5 rounded border border-slate-200 font-bold text-inst-navy">/exec</code> para habilitar el acceso directo.</span>
+          </div>
+        </div>
+
+        <div class="flex flex-col sm:flex-row gap-2 w-full lg:w-auto">
+          <input 
+            type="url" 
+            id="inp-url-exec" 
+            placeholder="https://script.google.com/macros/s/.../exec" 
+            class="px-3.5 py-2.5 rounded-xl border border-slate-300 focus:border-inst-navy focus:outline-none text-xs sm:text-sm font-mono w-full sm:w-80 bg-white"
+          >
+          <button onclick="guardarUrlInline()" class="bg-inst-navy hover:bg-inst-navyLight text-white font-bold text-xs sm:text-sm px-4 py-2.5 rounded-xl transition cursor-pointer flex items-center justify-center gap-2 whitespace-nowrap">
+            <i class="fa-solid fa-floppy-disk text-amber-300"></i> Guardar Enlace
+          </button>
+        </div>
+      </div>
+
+      <!-- Tres Tarjetas Homogéneas -->
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        
+        <!-- Estudiantes -->
+        <div class="bg-white rounded-2xl p-6 sm:p-7 shadow-sm border border-inst-border hover:border-inst-navy transition flex flex-col justify-between">
+          <div>
+            <div class="w-12 h-12 rounded-xl bg-inst-slateBg border border-inst-border text-inst-navy flex items-center justify-center text-xl mb-4">
+              <i class="fa-solid fa-user-graduate"></i>
+            </div>
+            <h3 class="text-lg font-extrabold text-inst-navy mb-2">Matrícula Estudiantil y Notas</h3>
+            <p class="text-sm text-slate-600 leading-relaxed mb-5">
+              Verifique su inscripción oficial con su cédula, active su ficha censal con su correo Gmail y fotografía tipo carnet, obtenga su código QR y consulte sus notas en tiempo real.
+            </p>
+          </div>
+          <button onclick="ingresarPortalWeb()" class="w-full bg-inst-navy hover:bg-inst-navyLight text-white font-bold py-3 px-4 rounded-xl transition flex items-center justify-center gap-2 text-sm cursor-pointer">
+            <span>Entrar a Registro y Notas</span>
+            <i class="fa-solid fa-arrow-up-right-from-square text-xs text-amber-300"></i>
+          </button>
+        </div>
+
+        <!-- Programación -->
+        <div class="bg-white rounded-2xl p-6 sm:p-7 shadow-sm border border-inst-border hover:border-inst-navy transition flex flex-col justify-between">
+          <div>
+            <div class="w-12 h-12 rounded-xl bg-inst-slateBg border border-inst-border text-inst-navy flex items-center justify-center text-xl mb-4">
+              <i class="fa-solid fa-calendar-days"></i>
+            </div>
+            <h3 class="text-lg font-extrabold text-inst-navy mb-2">Programación de la Cátedra</h3>
+            <p class="text-sm text-slate-600 leading-relaxed mb-5">
+              Consulte el cronograma oficial de clases teóricas, fechas de evaluaciones parciales, prácticas de laboratorio, talleres, seminarios y aulas asignadas por mes.
+            </p>
+          </div>
+          <button onclick="ingresarPortalWeb()" class="w-full bg-inst-navy hover:bg-inst-navyLight text-white font-bold py-3 px-4 rounded-xl transition flex items-center justify-center gap-2 text-sm cursor-pointer">
+            <span>Consultar Programación</span>
+            <i class="fa-solid fa-calendar-check text-xs text-amber-300"></i>
+          </button>
+        </div>
+
+        <!-- Profesores -->
+        <div class="bg-inst-navy text-white rounded-2xl p-6 sm:p-7 shadow-sm border border-inst-navy flex flex-col justify-between">
+          <div>
+            <div class="w-12 h-12 rounded-xl bg-white/10 text-amber-300 flex items-center justify-center text-xl mb-4">
+              <i class="fa-solid fa-chalkboard-user"></i>
+            </div>
+            <h3 class="text-lg font-extrabold text-white mb-2">Portal de Profesores</h3>
+            <p class="text-sm text-slate-200 leading-relaxed mb-5">
+              Acceso exclusivo para docentes de la cátedra mediante cédula y PIN autorizado para carga protegida de calificaciones, emisión de sábanas, estadísticas e impresión de carnets QR.
+            </p>
+          </div>
+          <button onclick="ingresarPortalWeb()" class="w-full bg-inst-gold hover:bg-amber-600 text-white font-bold py-3 px-4 rounded-xl transition flex items-center justify-center gap-2 text-sm cursor-pointer">
+            <i class="fa-solid fa-lock"></i>
+            <span>Ingreso Docente con PIN</span>
+          </button>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- 4. SECCIÓN: GUÍA DE INDUCCIÓN Y CONSULTA DE PROGRAMACIÓN (FONDO GRIS PIZARRA SUAVE) -->
+  <section id="induccion" class="bg-inst-slateBg py-14 sm:py-16 px-4 sm:px-6 lg:px-8 border-b border-inst-border">
+    <div class="max-w-7xl mx-auto">
+      <div class="text-center max-w-3xl mx-auto mb-10">
+        <span class="text-xs font-bold uppercase tracking-widest text-inst-gold">Orientación Académica</span>
+        <h2 class="text-2xl sm:text-3xl font-extrabold text-inst-navy mt-1">Inducción de Registro y Consulta de Programación</h2>
+        <p class="text-slate-600 text-sm sm:text-base mt-2">
+          Pasos detallados para activar su registro estudiantil al inicio del semestre y revisar el cronograma oficial de actividades.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+        
+        <!-- Cómo registrarse y acceder al portal -->
+        <div class="lg:col-span-7 bg-white rounded-2xl p-6 sm:p-8 shadow-sm border border-inst-border">
+          <h3 class="text-lg sm:text-xl font-extrabold text-inst-navy pb-4 mb-6 border-b border-slate-100 flex items-center gap-2.5">
+            <i class="fa-solid fa-id-card text-inst-gold"></i>
+            <span>¿Cómo registrarse y acceder al portal?</span>
+          </h3>
+
+          <div class="space-y-5 text-sm text-slate-600 leading-relaxed">
+            <div class="flex items-start gap-4">
+              <span class="w-7 h-7 rounded-full bg-inst-navy text-white font-bold text-xs flex items-center justify-center flex-shrink-0 mt-0.5">1</span>
+              <div>
+                <h4 class="font-bold text-inst-navy text-base">Verificación de Cédula Autorizada</h4>
+                <p class="mt-1">Ingrese al enlace del portal web, digite su <strong>número de cédula</strong> (solo números, sin puntos) y pulse <em>Verificar Matrícula / Consultar</em> para validar su inscripción en el listado oficial de Control de Estudios.</p>
+              </div>
+            </div>
+
+            <div class="flex items-start gap-4">
+              <span class="w-7 h-7 rounded-full bg-inst-navy text-white font-bold text-xs flex items-center justify-center flex-shrink-0 mt-0.5">2</span>
+              <div>
+                <h4 class="font-bold text-inst-navy text-base">Confirmación de Identidad con su Primer Apellido</h4>
+                <p class="mt-1">Escriba su <strong>Primer Apellido</strong> para confirmar su titularidad. Si detecta algún detalle ortográfico en sus nombres precargados, podrá corregirlos tildando la casilla correspondiente.</p>
+              </div>
+            </div>
+
+            <div class="flex items-start gap-4">
+              <span class="w-7 h-7 rounded-full bg-inst-navy text-white font-bold text-xs flex items-center justify-center flex-shrink-0 mt-0.5">3</span>
+              <div>
+                <h4 class="font-bold text-inst-navy text-base">Correo Gmail y Fotografía Tipo Carnet</h4>
+                <p class="mt-1">Ingrese una cuenta personal de <strong>Gmail (<code class="text-inst-navy font-semibold">@gmail.com</code>)</strong> para recibir sus reportes de calificaciones y su carnet QR, y adjunte una fotografía tipo carnet en formato JPG o PNG.</p>
+              </div>
+            </div>
+
+            <div class="flex items-start gap-4">
+              <span class="w-7 h-7 rounded-full bg-inst-gold text-white font-bold text-xs flex items-center justify-center flex-shrink-0 mt-0.5">4</span>
+              <div>
+                <h4 class="font-bold text-inst-navy text-base">Consulta Permanente de Calificaciones</h4>
+                <p class="mt-1">Una vez activada su ficha, cada vez que ingrese su cédula podrá pulsar <strong>&ldquo;Consultar Mis Notas&rdquo;</strong> para revisar su acumulado teórico, práctico y estatus académico.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Consulta de Programación + Nota Android -->
+        <div class="lg:col-span-5 flex flex-col justify-between gap-6">
+          <div class="bg-white rounded-2xl p-6 sm:p-7 shadow-sm border border-inst-border">
+            <h3 class="text-lg sm:text-xl font-extrabold text-inst-navy pb-3 mb-4 border-b border-slate-100 flex items-center gap-2.5">
+              <i class="fa-solid fa-calendar-week text-inst-gold"></i>
+              <span>¿Cómo consultar la Programación?</span>
+            </h3>
+            <ol class="space-y-3 text-sm text-slate-600 list-decimal list-inside leading-relaxed">
+              <li>En la portada del sistema web, pulse <strong>&ldquo;Ver Programación Académica y Evaluaciones&rdquo;</strong>.</li>
+              <li>Filtre por mes o visualice el semestre completo organizado en <strong>Clases Teóricas / Evaluativos</strong> y <strong>Prácticas de Laboratorio / Talleres</strong>.</li>
+              <li>Verifique fechas, temas, profesores responsables y aulas asignadas (la sigla <strong>PD</strong> significa <em>Por Definir</em>).</li>
+              <li>Puede imprimir o guardar el cronograma en formato horizontal desde el botón <strong>Imprimir</strong>.</li>
+            </ol>
+          </div>
+
+          <div class="bg-inst-goldSoft rounded-2xl p-5 sm:p-6 border border-inst-gold/40">
+            <div class="flex items-start gap-3">
+              <i class="fa-brands fa-android text-inst-navy text-xl mt-0.5"></i>
+              <div class="text-xs sm:text-sm text-slate-700 leading-relaxed">
+                <h4 class="font-bold text-inst-navy text-sm sm:text-base">Recomendación para Teléfonos Android</h4>
+                <p class="mt-1">Si al abrir el enlace del portal desde Chrome en Android aparece el mensaje <em>&ldquo;No se pudo abrir el archivo en este momento&rdquo;</em>, se debe a múltiples cuentas Gmail iniciadas en el navegador móvil. Ábralo en una <strong>pestaña de incógnito</strong> o desde una computadora.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- 5. SECCIÓN: BENEFICIOS DEL PORTAL (FONDO BLANCO) -->
+  <section id="beneficios" class="bg-white py-14 sm:py-16 px-4 sm:px-6 lg:px-8 border-b border-inst-border">
+    <div class="max-w-7xl mx-auto">
+      <div class="text-center max-w-3xl mx-auto mb-12">
+        <span class="text-xs font-bold uppercase tracking-widest text-inst-gold">Gestión Académica Moderna</span>
+        <h2 class="text-2xl sm:text-3xl font-extrabold text-inst-navy mt-1">Beneficios para Bachilleres y Profesores</h2>
+        <p class="text-slate-600 text-sm sm:text-base mt-2">
+          Herramientas diseñadas para agilizar la atención en grupos masificados con precisión, orden y transparencia.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div class="bg-inst-slateBg rounded-2xl p-6 border border-inst-border">
+          <div class="w-11 h-11 rounded-xl bg-inst-navy text-amber-300 flex items-center justify-center text-lg mb-4">
+            <i class="fa-solid fa-qrcode"></i>
+          </div>
+          <h3 class="text-base font-extrabold text-inst-navy mb-2">Carnets QR de Asistencia</h3>
+          <p class="text-sm text-slate-600 leading-relaxed">
+            Cada bachiller obtiene un código QR individual para el registro rápido y confiable de asistencia en exámenes parciales y sesiones de laboratorio.
+          </p>
+        </div>
+
+        <div class="bg-inst-slateBg rounded-2xl p-6 border border-inst-border">
+          <div class="w-11 h-11 rounded-xl bg-inst-navy text-amber-300 flex items-center justify-center text-lg mb-4">
+            <i class="fa-solid fa-envelope-open-text"></i>
+          </div>
+          <h3 class="text-base font-extrabold text-inst-navy mb-2">Notas en Tiempo Real al Correo</h3>
+          <p class="text-sm text-slate-600 leading-relaxed">
+            Recepción directa en su correo electrónico Gmail de las boletas oficiales con el desglose detallado de parciales, laboratorios, talleres y acumulativos.
+          </p>
+        </div>
+
+        <div class="bg-inst-slateBg rounded-2xl p-6 border border-inst-border">
+          <div class="w-11 h-11 rounded-xl bg-inst-navy text-amber-300 flex items-center justify-center text-lg mb-4">
+            <i class="fa-solid fa-scale-balanced"></i>
+          </div>
+          <h3 class="text-base font-extrabold text-inst-navy mb-2">Cómputo Exacto y Seguro</h3>
+          <p class="text-sm text-slate-600 leading-relaxed">
+            Cálculo automático según las ponderaciones vigentes de la cátedra, con registros protegidos mediante PIN docente y auditoría de carga.
+          </p>
+        </div>
+
+        <div class="bg-inst-slateBg rounded-2xl p-6 border border-inst-border">
+          <div class="w-11 h-11 rounded-xl bg-inst-navy text-amber-300 flex items-center justify-center text-lg mb-4">
+            <i class="fa-solid fa-chart-column"></i>
+          </div>
+          <h3 class="text-base font-extrabold text-inst-navy mb-2">Sábanas y Estadísticas</h3>
+          <p class="text-sm text-slate-600 leading-relaxed">
+            Generación inmediata de actas por evaluación, sábanas consolidadas e indicadores cuantitativos de rendimiento de la cohorte.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 6. SECCIÓN: PLANTA DOCENTE DE LA CÁTEDRA (FONDO GRIS PIZARRA SUAVE) -->
+  <section id="docentes" class="bg-inst-slateBg py-14 sm:py-16 px-4 sm:px-6 lg:px-8 border-b border-inst-border">
+    <div class="max-w-7xl mx-auto">
+      <div class="text-center max-w-3xl mx-auto mb-10">
+        <span class="text-xs font-bold uppercase tracking-widest text-inst-gold">Cuerpo Académico</span>
+        <h2 class="text-2xl sm:text-3xl font-extrabold text-inst-navy mt-1">Profesores de la Cátedra de Química General</h2>
+        <p class="text-slate-600 text-sm sm:text-base mt-2">
+          Equipo docente responsable de la conducción académica, teórica y experimental de la asignatura.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        
+        <!-- Jefe de la Cátedra -->
+        <div class="bg-white rounded-2xl p-6 sm:p-7 shadow-sm border border-inst-border border-t-4 border-t-inst-navy">
+          <div class="flex items-center gap-4 mb-4">
+            <div class="w-12 h-12 rounded-xl bg-inst-navy text-amber-300 flex items-center justify-center text-lg flex-shrink-0">
+              <i class="fa-solid fa-user-tie"></i>
+            </div>
+            <div>
+              <span class="inline-block text-[11px] font-bold uppercase tracking-wider bg-inst-goldSoft text-inst-gold border border-inst-gold/40 px-2.5 py-0.5 rounded-full">
+                Jefe de la Cátedra
+              </span>
+              <h3 class="text-lg font-extrabold text-inst-navy mt-1">Prof. Wilmer Vielma</h3>
+            </div>
+          </div>
+          <p class="text-sm text-slate-600 leading-relaxed">
+            Jefe de la Cátedra de Química General. Coordinación académica, planificación teórica y supervisión de actividades experimentales en la Escuela de Bioanálisis (FM - LUZ).
+          </p>
+        </div>
+
+        <!-- Docente de la Cátedra -->
+        <div class="bg-white rounded-2xl p-6 sm:p-7 shadow-sm border border-inst-border border-t-4 border-t-inst-navy">
+          <div class="flex items-center gap-4 mb-4">
+            <div class="w-12 h-12 rounded-xl bg-inst-navy text-amber-300 flex items-center justify-center text-lg flex-shrink-0">
+              <i class="fa-solid fa-chalkboard-user"></i>
+            </div>
+            <div>
+              <span class="inline-block text-[11px] font-bold uppercase tracking-wider bg-slate-100 text-inst-navy border border-slate-300 px-2.5 py-0.5 rounded-full">
+                Docente de la Cátedra
+              </span>
+              <h3 class="text-lg font-extrabold text-inst-navy mt-1">Profa. Adrianyela Chourio</h3>
+            </div>
+          </div>
+          <p class="text-sm text-slate-600 leading-relaxed">
+            Docente de la Cátedra de Química General. Formación teórica y conducción de prácticas de laboratorio en la Escuela de Bioanálisis (FM - LUZ).
+          </p>
+        </div>
+
+        <!-- Profesor Colaborador -->
+        <div class="bg-white rounded-2xl p-6 sm:p-7 shadow-sm border border-inst-border border-t-4 border-t-inst-gold">
+          <div class="flex items-center gap-4 mb-4">
+            <div class="w-12 h-12 rounded-xl bg-inst-goldSoft border border-inst-gold/50 text-inst-navy flex items-center justify-center text-lg flex-shrink-0">
+              <i class="fa-solid fa-laptop-code"></i>
+            </div>
+            <div>
+              <span class="inline-block text-[11px] font-bold uppercase tracking-wider bg-inst-goldSoft text-inst-gold border border-inst-gold/40 px-2.5 py-0.5 rounded-full">
+                Profesor Colaborador
+              </span>
+              <h3 class="text-lg font-extrabold text-inst-navy mt-1">Prof. Raúl Chirinos</h3>
+            </div>
+          </div>
+          <p class="text-sm text-slate-600 leading-relaxed">
+            Colaborador de la Cátedra de Química General (Docente de la Cátedra de Análisis Instrumental). Apoyo académico y desarrollo del ecosistema digital de gestión de la cátedra.
+          </p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- 7. SECCIÓN: PREPARADURÍAS DE LA CÁTEDRA Y VIDEOTECA (FONDO BLANCO) -->
+  <section id="preparaduria" class="bg-white py-14 sm:py-16 px-4 sm:px-6 lg:px-8 border-b border-inst-border">
+    <div class="max-w-7xl mx-auto">
+      <div class="text-center max-w-3xl mx-auto mb-10">
+        <span class="text-xs font-bold uppercase tracking-widest text-inst-gold">Acompañamiento Estudiantil</span>
+        <h2 class="text-2xl sm:text-3xl font-extrabold text-inst-navy mt-1">Preparadurías y Videoteca de Consulta</h2>
+        <p class="text-slate-600 text-sm sm:text-base mt-2">
+          Información oficial de la preparaduría académica y repositorio de videos explicativos elaborados para el refuerzo de los contenidos de Química General.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+        
+        <!-- Reseña Íntegra de la Preparadora Mariana Bracho (7 columnas) -->
+        <div class="lg:col-span-7 bg-inst-slateBg rounded-2xl p-6 sm:p-8 border border-inst-border shadow-sm">
+          <div class="flex items-center gap-3.5 pb-4 mb-5 border-b border-inst-border">
+            <div class="w-12 h-12 rounded-xl bg-inst-navy text-amber-300 flex items-center justify-center text-xl flex-shrink-0">
+              <i class="fa-solid fa-flask-vial"></i>
+            </div>
+            <div>
+              <span class="text-xs font-bold uppercase tracking-wider text-inst-gold">Preparaduría Oficial &bull; Química General</span>
+              <h3 class="text-lg sm:text-xl font-extrabold text-inst-navy">
+                🧪 Bienvenida y Dinámica de las Preparadurías – Química General
+              </h3>
+            </div>
+          </div>
+
+          <div class="space-y-4 text-sm text-slate-700 leading-relaxed">
+            <p>
+              ¡Hola a todos! 👋 Bienvenidos al curso de Química General.<br>
+              Mi nombre es <strong>Mariana Bracho</strong>, estudiante del sexto semestre de Bioanálisis 🔬, y seré su preparadora durante este período académico. Aunque es posible que coincidamos en algunas clases teóricas o sesiones prácticas, nuestro canal principal de comunicación y apoyo será el grupo oficial de la materia.
+            </p>
+
+            <div class="bg-white rounded-xl p-4 sm:p-5 border border-inst-border space-y-2.5">
+              <h4 class="font-extrabold text-inst-navy text-base">🎥 Dinámica de las Asesorías</h4>
+              <ul class="space-y-2 text-slate-700">
+                <li><strong>- Material audiovisual:</strong> Las preparadurías se impartirán mediante videos explicativos en YouTube elaborados por mí, siguiendo estrictamente el cronograma temático de los profesores 🎬.</li>
+                <li><strong>- Publicación de enlaces:</strong> Una vez que cada clase de refuerzo esté disponible, compartiré el enlace directamente en el grupo 🔗.</li>
+                <li><strong>- Apertura del grupo y resolución de dudas:</strong> No existe un horario fijo permanente para el chat; generalmente el grupo se abrirá al día siguiente de publicar los videos (para darles oportunidad de verlos y asistir a sus clases). En cada ocasión les avisaré previamente qué día y en qué horario estará abierto para resolver sus dudas 💬.</li>
+              </ul>
+            </div>
+
+            <div class="bg-white rounded-xl p-4 sm:p-5 border border-inst-border space-y-2.5">
+              <h4 class="font-extrabold text-inst-navy text-base">📌 Normas y Aclaratorias Importantes</h4>
+              <ol class="space-y-2.5 text-slate-700">
+                <li><strong>1. Complemento académico:</strong> Las preparadurías son un refuerzo de los contenidos vistos en clase y no sustituyen la asistencia a las clases teóricas. Es indispensable asistir a las sesiones con los profesores para aprovechar las asesorías 📚.</li>
+                <li><strong>2. Consultas exclusivamente por el grupo:</strong> Debido a que el curso cuenta con más de 200 estudiantes, todas las dudas académicas deben plantearse en el grupo oficial para beneficio de todos. Los mensajes directos al privado quedan reservados únicamente para situaciones especiales; cualquier duda temática enviada por esa vía será reenviada y respondida en el grupo 👥.</li>
+                <li><strong>3. Alcance de la preparaduría:</strong> Como preparadora, no tengo injerencia en la modificación de calificaciones, elaboración de exámenes ni gestión de justificativos o inconvenientes administrativos. Cualquier asunto de esta índole debe tratarse directamente con los profesores de la cátedra 📝.</li>
+                <li><strong>4. Límite de atención:</strong> No se responderán mensajes a partir de las 7:30 p. m. Les agradezco tenerlo en cuenta y respetar este horario 🕢.</li>
+                <li><strong>5. Convivencia y respeto:</strong> Este es un espacio estrictamente académico. Cualquier falta de respeto hacia la preparadora o hacia cualquiera de los compañeros conllevará la expulsión inmediata del grupo y el reporte correspondiente ante las autoridades de la facultad 🤝.</li>
+              </ol>
+            </div>
+
+            <p class="font-bold text-inst-navy text-base pt-1">
+              ¡Mucho éxito en este semestre! ✨
+            </p>
+          </div>
+        </div>
+
+        <!-- Videoteca de Consulta de la Preparaduría (5 columnas) -->
+        <div class="lg:col-span-5 bg-inst-slateBg rounded-2xl p-6 sm:p-7 border border-inst-border shadow-sm">
+          <div class="flex items-center justify-between gap-2 pb-4 mb-5 border-b border-inst-border">
+            <div>
+              <h3 class="text-lg font-extrabold text-inst-navy flex items-center gap-2">
+                <i class="fa-brands fa-youtube text-inst-navy"></i>
+                <span>Videos de Preparaduría</span>
+              </h3>
+              <p class="text-xs text-slate-500 mt-0.5">Material audiovisual de YouTube elaborado por Mariana Bracho</p>
+            </div>
+            <button onclick="abrirModalVideo()" class="bg-inst-navy hover:bg-inst-navyLight text-white font-bold text-xs px-3.5 py-2 rounded-xl transition cursor-pointer flex items-center gap-1.5 whitespace-nowrap">
+              <i class="fa-solid fa-plus text-amber-300"></i> Colgar Video
+            </button>
+          </div>
+
+          <div id="lista-videos-prep" class="space-y-4">
+            <!-- Se renderiza dinámicamente -->
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- 8. PIE DE PÁGINA INSTITUCIONAL -->
+  <footer class="bg-inst-navy text-white pt-10 pb-8 border-t-4 border-inst-gold">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8 pb-8 border-b border-white/15">
+        <div>
+          <h4 class="font-extrabold text-base text-white mb-2">
+            CÁTEDRA QUÍMICA GENERAL - ESCUELA DE BIOANÁLISIS - FM - LUZ
+          </h4>
+          <p class="text-slate-300 text-sm leading-relaxed">
+            Portal Académico Oficial &bull; Escuela de Bioanálisis<br>
+            Facultad de Medicina &bull; Universidad del Zulia<br>
+            Maracaibo, Estado Zulia, Venezuela.
+          </p>
+        </div>
+
+        <div>
+          <h4 class="font-bold text-xs uppercase tracking-wider text-amber-300 mb-3">Secciones del Portal</h4>
+          <ul class="space-y-2 text-sm text-slate-200">
+            <li><a href="#registro-consulta" class="hover:text-white transition">Registro y Consulta</a></li>
+            <li><a href="#induccion" class="hover:text-white transition">Inducción y Programación</a></li>
+            <li><a href="#beneficios" class="hover:text-white transition">Beneficios del Portal</a></li>
+            <li><a href="#docentes" class="hover:text-white transition">Planta Docente</a></li>
+            <li><a href="#preparaduria" class="hover:text-white transition">Preparadurías y Videos</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h4 class="font-bold text-xs uppercase tracking-wider text-amber-300 mb-3">Carga Local de Escudos Oficiales (Opcional)</h4>
+          <p class="text-xs text-slate-300 leading-relaxed mb-3">
+            Si abre este archivo HTML de forma local en su navegador y desea previsualizar sus archivos de imagen directamente, selecciónelos aquí:
+          </p>
+          <div class="flex flex-wrap gap-2">
+            <label class="bg-white/10 hover:bg-white/20 border border-white/25 text-white text-xs font-semibold px-3 py-1.5 rounded-lg cursor-pointer transition">
+              <i class="fa-solid fa-image text-amber-300 mr-1"></i> Escudo LUZ
+              <input id="inp-file-luz" type="file" accept="image/*" class="hidden" onchange="cargarLogoLocal(event, 'img-logo-luz', 'fallback-texto-luz')">
+            </label>
+            <label class="bg-white/10 hover:bg-white/20 border border-white/25 text-white text-xs font-semibold px-3 py-1.5 rounded-lg cursor-pointer transition">
+              <i class="fa-solid fa-image text-amber-300 mr-1"></i> Escudo FCM
+              <input id="inp-file-fcm" type="file" accept="image/*" class="hidden" onchange="cargarLogoLocal(event, 'img-logo-fcm', 'fallback-texto-fcm')">
+            </label>
+          </div>
+        </div>
+      </div>
+
+      <div class="pt-6 flex flex-col sm:flex-row justify-between items-center gap-3 text-xs text-slate-300">
+        <p>&copy; <span id="anio-actual">2026</span> CÁTEDRA QUÍMICA GENERAL - ESCUELA DE BIOANÁLISIS - FM - LUZ.</p>
+        <p class="text-amber-200 font-semibold">Universidad del Zulia &bull; Post Nubila Phoebus</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- MODAL 1: CONFIGURAR URL DEL PORTAL (/exec) -->
+  <div id="modal-url" class="hidden fixed inset-0 z-50 bg-slate-900/70 backdrop-blur-sm flex items-center justify-center p-4">
+    <div class="bg-white rounded-2xl max-w-lg w-full p-6 shadow-2xl border-t-4 border-inst-navy animate-fade">
+      <div class="flex justify-between items-center pb-3 border-b border-slate-200">
+        <h3 class="text-lg font-extrabold text-inst-navy">Vincular Enlace del Portal (/exec)</h3>
+        <button onclick="cerrarModalUrl()" class="text-slate-400 hover:text-slate-700 cursor-pointer"><i class="fa-solid fa-xmark text-lg"></i></button>
+      </div>
+      <div class="py-4 space-y-3 text-sm text-slate-600">
+        <p>Pegue la URL pública de implementación de Google Apps Script correspondiente a <strong>Química General</strong> (terminada en <code class="bg-slate-100 px-1.5 py-0.5 rounded font-bold text-inst-navy">/exec</code>):</p>
+        <input type="url" id="modal-inp-url" placeholder="https://script.google.com/macros/s/.../exec" class="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 focus:border-inst-navy focus:outline-none font-mono text-xs sm:text-sm">
+      </div>
+      <div class="flex justify-end gap-2 pt-3 border-t border-slate-100">
+        <button onclick="cerrarModalUrl()" class="px-4 py-2 rounded-xl border border-slate-300 text-slate-700 font-semibold text-sm cursor-pointer">Cancelar</button>
+        <button onclick="guardarUrlModal()" class="px-5 py-2 rounded-xl bg-inst-navy hover:bg-inst-navyLight text-white font-bold text-sm cursor-pointer">Guardar Enlace</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL 2: COLGAR VIDEO DE YOUTUBE EN PREPARADURÍA -->
+  <div id="modal-video" class="hidden fixed inset-0 z-50 bg-slate-900/70 backdrop-blur-sm flex items-center justify-center p-4">
+    <div class="bg-white rounded-2xl max-w-lg w-full p-6 shadow-2xl border-t-4 border-inst-gold animate-fade">
+      <div class="flex justify-between items-center pb-3 border-b border-slate-200">
+        <h3 class="text-lg font-extrabold text-inst-navy">Colgar Video Explicativo de YouTube</h3>
+        <button onclick="cerrarModalVideo()" class="text-slate-400 hover:text-slate-700 cursor-pointer"><i class="fa-solid fa-xmark text-lg"></i></button>
+      </div>
+      <div class="py-4 space-y-3 text-sm">
+        <div>
+          <label class="block font-bold text-inst-navy mb-1">Título de la Clase de Refuerzo *:</label>
+          <input type="text" id="vid-titulo" placeholder="Ej: Clase 1 - Estequiometría y Reactivo Limitante" class="w-full px-3 py-2 rounded-xl border border-slate-300">
+        </div>
+        <div>
+          <label class="block font-bold text-inst-navy mb-1">Enlace del Video en YouTube *:</label>
+          <input type="url" id="vid-url" placeholder="https://www.youtube.com/watch?v=..." class="w-full px-3 py-2 rounded-xl border border-slate-300 font-mono text-xs">
+        </div>
+        <div>
+          <label class="block font-bold text-inst-navy mb-1">Tema / Unidad del Cronograma:</label>
+          <input type="text" id="vid-tema" placeholder="Ej: Unidad I - Cálculos Químicos" class="w-full px-3 py-2 rounded-xl border border-slate-300">
+        </div>
+      </div>
+      <div class="flex justify-end gap-2 pt-3 border-t border-slate-100">
+        <button onclick="cerrarModalVideo()" class="px-4 py-2 rounded-xl border border-slate-300 text-slate-700 font-semibold text-sm cursor-pointer">Cancelar</button>
+        <button onclick="guardarVideoPrep()" class="px-5 py-2 rounded-xl bg-inst-navy hover:bg-inst-navyLight text-white font-bold text-sm cursor-pointer">Publicar Video</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL 3: REPRODUCTOR DE VIDEO -->
+  <div id="modal-player" class="hidden fixed inset-0 z-50 bg-slate-950/85 backdrop-blur-sm flex items-center justify-center p-4">
+    <div class="bg-slate-900 rounded-2xl max-w-4xl w-full overflow-hidden shadow-2xl border border-slate-700 animate-fade">
+      <div class="flex justify-between items-center px-5 py-3.5 bg-inst-navy text-white">
+        <h3 id="player-titulo" class="font-bold text-sm sm:text-base truncate pr-4">Video de Preparaduría</h3>
+        <button onclick="cerrarPlayer()" class="bg-inst-gold hover:bg-amber-600 text-white px-3 py-1 rounded-lg text-xs font-bold cursor-pointer">Cerrar ✕</button>
+      </div>
+      <div class="aspect-video w-full bg-black">
+        <iframe id="player-iframe" class="w-full h-full" src="" title="Reproductor de YouTube" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+      </div>
+    </div>
+  </div>
+
+  <!-- TOAST DE NOTIFICACIÓN -->
+  <div id="toast-notificacion" class="hidden fixed bottom-5 right-5 z-50 max-w-sm bg-inst-navy text-white px-4 py-3.5 rounded-xl shadow-2xl border-l-4 border-inst-gold flex items-start gap-3 animate-fade">
+    <i id="toast-icono" class="fa-solid fa-circle-check text-amber-300 mt-0.5 text-lg"></i>
+    <div id="toast-mensaje" class="text-xs sm:text-sm leading-snug"></div>
+  </div>
+
+  <script>
+    // =========================================================================
+    // 1. CARGA LOCAL DE LOGOS OFICIALES
+    // =========================================================================
+    function cargarLogoLocal(event, imgId, fallbackId) {
+      const file = event.target.files[0];
+      if (!file) return;
+      const reader = new FileReader();
+      reader.onload = function(e) {
+        const img = document.getElementById(imgId);
+        const fb = document.getElementById(fallbackId);
+        if (fb) {
+          fb.classList.add('hidden');
+          fb.classList.remove('flex');
+        }
+        img.style.display = 'block';
+        img.src = e.target.result;
+        mostrarToast('✅ Escudo institucional cargado en la portada.', 'success');
+      };
+      reader.readAsDataURL(file);
+    }
+
+    // =========================================================================
+    // 2. GESTIÓN DE URL DEL PORTAL WEB (/exec)
+    // =========================================================================
+    const KEY_URL_PORTAL = 'LUZ_QG_PORTAL_EXEC_URL';
+
+    function obtenerUrlGuardada() {
+      return (localStorage.getItem(KEY_URL_PORTAL) || '').trim();
+    }
+
+    function refrescarEstadoUrl() {
+      const url = obtenerUrlGuardada();
+      const inp = document.getElementById('inp-url-exec');
+      const dot = document.getElementById('dot-url');
+      const lbl = document.getElementById('lbl-url-estado');
+
+      if (inp) inp.value = url;
+      if (url && url.startsWith('http')) {
+        dot.className = 'w-3 h-3 rounded-full bg-emerald-600 mt-1 sm:mt-0 flex-shrink-0';
+        lbl.innerHTML = `Enlace vinculado y listo: <span class="font-mono text-xs bg-white px-2 py-0.5 rounded border border-slate-200 text-inst-navy">${url.length > 52 ? url.substring(0, 52) + '...' : url}</span>`;
+      } else {
+        dot.className = 'w-3 h-3 rounded-full bg-amber-500 mt-1 sm:mt-0 flex-shrink-0';
+        lbl.innerHTML = `Pegue la URL pública terminada en <code class="bg-white px-1.5 py-0.5 rounded border border-slate-200 font-bold text-inst-navy">/exec</code> para habilitar el acceso directo.`;
+      }
+    }
+
+    function validarYGuardarUrl(url) {
+      if (!url) {
+        localStorage.removeItem(KEY_URL_PORTAL);
+        refrescarEstadoUrl();
+        mostrarToast('Enlace eliminado.', 'info');
+        return true;
+      }
+      if (!url.startsWith('https://script.google.com/')) {
+        mostrarToast('⚠️ Ingrese una URL oficial de Google Apps Script (https://script.google.com/macros/s/.../exec).', 'warning');
+        return false;
+      }
+      if (url.endsWith('/dev')) {
+        mostrarToast('⚠️ Ese enlace es de prueba (/dev). Utilice el enlace público terminado en /exec.', 'warning');
+        return false;
+      }
+      localStorage.setItem(KEY_URL_PORTAL, url);
+      refrescarEstadoUrl();
+      mostrarToast('✅ Enlace del Portal de Química General guardado correctamente.', 'success');
+      return true;
+    }
+
+    function guardarUrlInline() {
+      validarYGuardarUrl(document.getElementById('inp-url-exec').value.trim());
+    }
+
+    function guardarUrlModal() {
+      if (validarYGuardarUrl(document.getElementById('modal-inp-url').value.trim())) {
+        cerrarModalUrl();
+      }
+    }
+
+    function ingresarPortalWeb() {
+      const url = obtenerUrlGuardada();
+      if (!url || !url.startsWith('http')) {
+        abrirModalUrl();
+        mostrarToast('Pegue y guarde primero la URL (/exec) del Portal de Química General.', 'info');
+        return;
+      }
+      window.open(url, '_blank', 'noopener,noreferrer');
+    }
+
+    function abrirModalUrl() {
+      document.getElementById('modal-inp-url').value = obtenerUrlGuardada();
+      document.getElementById('modal-url').classList.remove('hidden');
+    }
+
+    function cerrarModalUrl() {
+      document.getElementById('modal-url').classList.add('hidden');
+    }
+
+    // =========================================================================
+    // 3. VIDEOTECA DE PREPARADURÍAS (MARIANA BRACHO)
+    // =========================================================================
+    const KEY_VIDEOS_PREP = 'LUZ_QG_VIDEOS_MARIANA_BRACHO';
+
+    const VIDEOS_INICIALES = [
+      {
+        titulo: "Clase de Refuerzo 1: Estequiometría y Cálculos Químicos",
+        youtubeId: "Q1y8c_MZYvE",
+        tema: "Unidad I &bull; Preparaduría Química General"
+      },
+      {
+        titulo: "Clase de Refuerzo 2: Concentración de Disoluciones y Diluciones",
+        youtubeId: "KLjGd9fddEU",
+        tema: "Unidad II &bull; Preparaduría Química General"
+      }
+    ];
+
+    function extraerIdYouTube(url) {
+      if (!url) return "";
+      const regExp = /(?:youtube\.com\/(?:[^\/]+\/.+\/|(?:v|e(?:mbed)?)\/|.*[?&]v=)|youtu\.be\/)([^"&?\/\s]{11})/;
+      const match = url.match(regExp);
+      return match ? match[1] : "";
+    }
+
+    function obtenerVideosPrep() {
+      try {
+        const raw = localStorage.getItem(KEY_VIDEOS_PREP);
+        if (raw) {
+          const parsed = JSON.parse(raw);
+          if (Array.isArray(parsed)) return parsed;
+        }
+      } catch (e) {}
+      return VIDEOS_INICIALES;
+    }
+
+    function renderizarVideosPrep() {
+      const cont = document.getElementById('lista-videos-prep');
+      const lista = obtenerVideosPrep();
+
+      if (lista.length === 0) {
+        cont.innerHTML = `<p class="text-xs text-slate-500 text-center py-6">Aún no hay videos colgados. Use el botón <b>Colgar Video</b> para añadir los enlaces de YouTube de la preparaduría.</p>`;
+        return;
+      }
+
+      cont.innerHTML = lista.map((v, idx) => {
+        const thumb = v.youtubeId
+          ? `https://img.youtube.com/vi/${v.youtubeId}/hqdefault.jpg`
+          : `https://placehold.co/640x360/13294B/ffffff?text=Quimica+General+LUZ`;
+
+        return `
+          <div class="bg-white rounded-xl border border-inst-border overflow-hidden shadow-sm hover:border-inst-navy transition">
+            <div onclick="reproducirVideoPrep(${idx})" class="relative aspect-video bg-slate-900 cursor-pointer overflow-hidden group">
+              <img src="${thumb}" alt="${v.titulo}" onerror="this.src='https://placehold.co/640x360/13294B/ffffff?text=Video+Preparaduria'" class="w-full h-full object-cover opacity-90 group-hover:scale-105 transition-transform duration-300">
+              <div class="absolute inset-0 bg-inst-navy/25 flex items-center justify-center">
+                <div class="w-12 h-12 rounded-full bg-inst-navy text-amber-300 border-2 border-white flex items-center justify-center text-base shadow-lg group-hover:scale-110 transition-transform">
+                  <i class="fa-solid fa-play ml-0.5"></i>
+                </div>
+              </div>
+              <span class="absolute top-2 left-2 bg-inst-navy/90 text-amber-200 text-[11px] font-bold px-2.5 py-0.5 rounded-md">
+                ${v.tema}
+              </span>
+            </div>
+            <div class="p-3.5 flex items-center justify-between gap-2">
+              <div class="min-w-0">
+                <h4 class="font-bold text-inst-navy text-sm truncate">${v.titulo}</h4>
+                <span class="text-xs text-slate-500">Elaborado por: Br. Mariana Bracho</span>
+              </div>
+              <div class="flex items-center gap-2 flex-shrink-0">
+                <button onclick="reproducirVideoPrep(${idx})" class="bg-inst-slateBg hover:bg-inst-navy hover:text-white text-inst-navy border border-inst-border text-xs font-bold px-3 py-1.5 rounded-lg transition cursor-pointer">
+                  Ver
+                </button>
+                <button onclick="eliminarVideoPrep(${idx})" class="text-slate-400 hover:text-red-600 p-1.5 cursor-pointer" title="Quitar video">
+                  <i class="fa-solid fa-trash-can text-xs"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+        `;
+      }).join('');
+    }
+
+    function abrirModalVideo() {
+      document.getElementById('modal-video').classList.remove('hidden');
+    }
+
+    function cerrarModalVideo() {
+      document.getElementById('modal-video').classList.add('hidden');
+    }
+
+    function guardarVideoPrep() {
+      const titulo = document.getElementById('vid-titulo').value.trim();
+      const url = document.getElementById('vid-url').value.trim();
+      const tema = document.getElementById('vid-tema').value.trim() || 'Preparaduría Química General';
+
+      if (!titulo || !url) {
+        mostrarToast('Complete el título y el enlace de YouTube.', 'warning');
+        return;
+      }
+
+      const ytId = extraerIdYouTube(url);
+      if (!ytId) {
+        mostrarToast('⚠️ El enlace de YouTube no es válido. Pegue la URL completa del video.', 'warning');
+        return;
+      }
+
+      const lista = obtenerVideosPrep();
+      lista.unshift({ titulo, youtubeId: ytId, tema });
+      localStorage.setItem(KEY_VIDEOS_PREP, JSON.stringify(lista));
+
+      renderizarVideosPrep();
+      cerrarModalVideo();
+      document.getElementById('vid-titulo').value = '';
+      document.getElementById('vid-url').value = '';
+      document.getElementById('vid-tema').value = '';
+      mostrarToast('✅ Video de preparaduría publicado correctamente.', 'success');
+    }
+
+    function eliminarVideoPrep(idx) {
+      const lista = obtenerVideosPrep();
+      lista.splice(idx, 1);
+      localStorage.setItem(KEY_VIDEOS_PREP, JSON.stringify(lista));
+      renderizarVideosPrep();
+      mostrarToast('Video retirado de la lista.', 'info');
+    }
+
+    function reproducirVideoPrep(idx) {
+      const lista = obtenerVideosPrep();
+      const v = lista[idx];
+      if (!v || !v.youtubeId) return;
+      document.getElementById('player-titulo').innerText = v.titulo;
+      document.getElementById('player-iframe').src = `https://www.youtube.com/embed/${v.youtubeId}?autoplay=1`;
+      document.getElementById('modal-player').classList.remove('hidden');
+    }
+
+    function cerrarPlayer() {
+      document.getElementById('player-iframe').src = '';
+      document.getElementById('modal-player').classList.add('hidden');
+    }
+
+    // =========================================================================
+    // 4. UTILIDADES DE INTERFAZ
+    // =========================================================================
+    function toggleMenuMovil() {
+      document.getElementById('menu-movil').classList.toggle('hidden');
+    }
+
+    let timerToast = null;
+    function mostrarToast(msg, tipo) {
+      const box = document.getElementById('toast-notificacion');
+      const icon = document.getElementById('toast-icono');
+      const text = document.getElementById('toast-mensaje');
+
+      text.innerHTML = msg;
+      if (tipo === 'warning') icon.className = 'fa-solid fa-triangle-exclamation text-amber-300 mt-0.5 text-lg';
+      else if (tipo === 'info') icon.className = 'fa-solid fa-circle-info text-blue-300 mt-0.5 text-lg';
+      else icon.className = 'fa-solid fa-circle-check text-amber-300 mt-0.5 text-lg';
+
+      box.classList.remove('hidden');
+      if (timerToast) clearTimeout(timerToast);
+      timerToast = setTimeout(() => box.classList.add('hidden'), 4500);
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+      document.getElementById('anio-actual').innerText = new Date().getFullYear();
+      refrescarEstadoUrl();
+      renderizarVideosPrep();
+    });
+  </script>
+</body>
+</html>
